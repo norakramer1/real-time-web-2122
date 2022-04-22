@@ -23,9 +23,7 @@
     "ejs": "^3.0.2",
     "express": "^4.17.3",
     "node-fetch": "^2.6.7",
+    "nodemon": "^2.0.15",
     "socket.io": "^4.4.1"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.15"
   }
 }
