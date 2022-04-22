@@ -62,10 +62,9 @@ body {
     margin-bottom: 1rem;
     overflow: hidden;
     overflow-wrap: break-word;
-    background-color: rgb(126, 0, 50);
+    background-color: rgb(255, 165, 201);
     border-radius: 25px;
     font-size: 0.8rem;
-  box-shadow: 0px 0px 15px -1px rgba(0,0,0,0.26);
   }
   
   section form {
