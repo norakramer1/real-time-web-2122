@@ -10,7 +10,7 @@ I started out with three concepts for my application.
 
 ![Three concepts wireflow](https://github.com/norakramer1/real-time-web-2122/blob/main/public/images/wireframes-concept-rtw.jpg)
 
-1. Location Guessing
+1. Location Guessing game
 Using the [Google Maps](https://developers.google.com/maps) API i wanted to make a simplified version of the popular game [GeoGuessr](https://www.geoguessr.com/). I was planning to show a map of a random location and have the current players in the room guess the country on the map shown. The person who guessed the name correctly would win. The issue i ran into, even before accessing the API was the paywall. The API is free to use the first 90 days but you do need to add a credit card and I didn't have one..
 
 #### Alternatives to the Google Maps API
