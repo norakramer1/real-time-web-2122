@@ -8,11 +8,58 @@ body {
     margin: 0;
     padding: 0;
     font-family: Helvetica, Arial, sans-serif;
-    overflow: hidden;
+    /* overflow: hidden; */
     min-height: 100vh;
     min-width: 100vw;
-    background: rgba(255, 0, 102);
+    background: #2d2d2d;
   }
+
+  h3 {
+    color: #fff;
+    margin: 5%;
+    text-align: left;
+    font-size: 5vw;
+  }
+
+div ul {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  margin: 10px 0 10px 0;
+}
+
+div ul.songs li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: 200px;
+  background-color: #191414;
+  border-radius: 10px;
+  margin: 10px;
+  border-radius: 0px 0px 27px 0px rgba(0,0,0,0.34);
+}
+
+div ul.songs li {
+  list-style: none;
+}
+
+   ul.songs li img {
+    height: 100px;
+    width: 100px;
+  }
+
+
+div ul.songs li h2{
+    color: #ffff;
+    text-align: center;
+  }
+
+div ul.songs li p {
+  color: rgb(217, 217, 217);
+  text-align: center;
+ }
 
   
   main {

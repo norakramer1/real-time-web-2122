@@ -2,24 +2,45 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> <%=pageTitle%> </title>
-  <link rel="stylesheet" href="styles/style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> <%=pageTitle%> </title>
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 
 <body>
-    <ul>
-    <% songs.forEach(song => { %>
-        <li><%- song.name %></li>
-        <li><%- song.album %></li>
-        <br>
+<div>
 
+
+
+    <h3><%-user%></h3>
+    <ul class="songs">
+      
+        <% songs.forEach(song => { %>
+            <li> 
+        <% song.albumImg.flat(); %>
+       <img src="<%- song.albumImg[0].url %>" alt="">
+
+        <% song.albumImg.flat(); %>
+        <!-- <li>
+            <h2><%-song.artist[0]%></h2>
+        </li> -->
+        
+            <h2><%-song.name.slice(0, 15) + (song.name.length > 15 ? "..." : "");%></h2>
+       
+            <p><%- song.album.slice(0, 20) + (song.album.length > 20 ? "..." : "") %></p>
+        </li>
+
+
+        <br>
         <% }); %>
     </ul>
-  <script src="/socket.io/socket.io.js"></script>
-<script src="js/script.js"></script>
+  
+</div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/script.js"></script>
 
 </body>
 

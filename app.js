@@ -18,7 +18,11 @@ app.set('views', './views');
 
 app.use(express.static(path.resolve('public')))
 
-
+const clientId = process.env.CLIENT_ID
+const clientSecret = process.env.CLIENT_SECRET
+const redirectUri = process.env.REDIRECT_URI
+let accessToken;
+let refreshToken;
 // spotify api scopes for retrieving information about artists, users
 const scopes = [
   'ugc-image-upload',
@@ -51,17 +55,17 @@ app.get('/', (req, res) => {
 
 // sets a const for the authorization of user info
 const spotifyApi = new SpotifyWebApi({
-  redirectUri: process.env.redirectUri,
-  clientId: process.env.clientId,
-  clientSecret: process.env.clientSecret
+  clientId,
+  clientSecret,
+  redirectUri
 });
 
 app.get('/login', (req, res) => {
   res.redirect(spotifyApi.createAuthorizeURL(scopes));
-  
+
 });
 
-// if something goes wrong spotify redirects to localhost:4000/callback and logs any errors
+// auth user and get access code
 app.get('/callback', (req, res) => {
   const error = req.query.error;
   const code = req.query.code;
@@ -72,7 +76,7 @@ app.get('/callback', (req, res) => {
     res.send(`Callback Error: ${error}`);
     return;
   }
-
+  // Retrieve an access token
   spotifyApi
     .authorizationCodeGrant(code)
     .then(data => {
@@ -82,65 +86,85 @@ app.get('/callback', (req, res) => {
 
       spotifyApi.setAccessToken(access_token);
       spotifyApi.setRefreshToken(refresh_token);
-
-      console.log('access_token:', access_token);
-      console.log('refresh_token:', refresh_token);
-
-      console.log(
-        `Sucessfully retreived access token. Expires in ${expires_in} s.`
-      );
-      res.send('Success! You can now close the window.');
+       accessToken = access_token;
+       refreshToken = refresh_token;
 
 
       spotifyApi.refreshAccessToken().then(
-        function(data) {
+        function (data) {
           console.log('The access token has been refreshed!');
-      
+
           // Save the access token so that it's used in future calls
           spotifyApi.setAccessToken(data.body['access_token']);
         },
-        function(err) {
+        function (err) {
           console.log('Could not refresh access token', err);
         }
+        
       );
     })
+
     .catch(error => {
       console.error('Error getting Tokens:', error);
       res.send(`Error getting Tokens: ${error}`);
     });
+
+
+    res.redirect('/albums')
+
 });
+
+
 
 app.get('/albums', (req, res) => {
   const spotifyApi = new SpotifyWebApi();
-  spotifyApi.setAccessToken(process.env.SPOTIFY_ACCESS_TOKEN);
-
-  //GET MY PROFILE DATA
-  spotifyApi.getMyTopTracks()
+  spotifyApi.setAccessToken(accessToken)
+  // console.log(process.env.SPOTIFY_ACCESS_TOKEN)
+  let userName;
+  spotifyApi.getMe()
   .then(function(data) {
-    let topTracks = data.body.items;
+    //console.log('Some information about the authenticated user', data.body);
 
-let songs = topTracks.map(element => {
-  return {
-    name: element.name,
-    album: element.album.name
-  }
-})
-res.render('toptracks', {
-  pageTitle: 'my tracks',
-  songs: songs,
-});
-//console.log(topTracks);
-console.log(songs);
+    userName = data.body.display_name;
+    //console.log(data.body)
   }, function(err) {
     console.log('Something went wrong!', err);
-
-  })
-
   });
+  //GET MY PROFILE DATA
+  spotifyApi.getMyTopTracks()
+    .then(function (data) {
+      let topTracks = data.body.items;
+     const size = 3
+
+      let allSongs = topTracks.map(element => {
+        return {
+          name: element.name,
+          artist: element.album.artists,
+          album: element.album.name,
+          albumImg: element.album.images
+        }
+      })
+     const songs = allSongs.slice(0, size) 
+      
+      res.render('toptracks', {
+        pageTitle: 'my tracks',
+        songs: songs,
+        user: userName
+      });
+      //console.log(topTracks);
+     // console.log(songs);
+    }, function (err) {
+      console.log('Something went wrong!', err);
+
+    })
+
+ 
+
+});
 
 app.get('/toptracks', (req, res) => {
   console.log('topTracks here');
-  
+  res.send('hey')
 });
 
 //sockets

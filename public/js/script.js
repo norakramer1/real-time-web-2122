@@ -16,4 +16,8 @@ socket.on('message', message => {
   messages.scrollTop = messages.scrollHeight
 })
 
+// socket.on('userSongs', userSongs => {
+//   io.emit('userSongs', data); 
+// })
+
 
