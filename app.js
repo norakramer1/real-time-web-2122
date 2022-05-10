@@ -10,7 +10,7 @@ const SpotifyWebApi = require('spotify-web-api-node')
 
 require('dotenv').config()
 
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 2000
 
 
 app.set('view engine', 'ejs');
@@ -114,7 +114,7 @@ app.get('/callback', (req, res) => {
 
 });
 
-
+let userData = [];
 
 app.get('/albums', (req, res) => {
   const spotifyApi = new SpotifyWebApi();
@@ -151,6 +151,15 @@ app.get('/albums', (req, res) => {
         songs: songs,
         user: userName
       });
+      console.log(userName)
+      // userData.forEach(asset => {}) 
+      let dataExists = userData.some(asset => asset.user === userName);
+        if(!dataExists) {
+          userData.push({
+            songs: songs,
+            user: userName
+          }) 
+        } 
       //console.log(topTracks);
      // console.log(songs);
     }, function (err) {
@@ -162,14 +171,18 @@ app.get('/albums', (req, res) => {
 
 });
 
-app.get('/toptracks', (req, res) => {
-  console.log('topTracks here');
-  res.send('hey')
-});
+
+
+// app.get('/toptracks', (req, res) => {
+//   console.log('topTracks here');
+//   res.send('hey')
+// });
 
 //sockets
-io.on('connection', (socket) => {
+io.on('connection', socket => {
   console.log('a user connected')
+
+  socket.emit('user data', userData);
 
   socket.on('message', (message) => {
     io.emit('message', message)

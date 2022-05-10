@@ -10,34 +10,16 @@
 </head>
 
 <body>
-<div>
 
-
-
-    <h3><%-user%></h3>
-    <ul class="songs">
-      
-        <% songs.forEach(song => { %>
-            <li> 
-        <% song.albumImg.flat(); %>
-       <img src="<%- song.albumImg[0].url %>" alt="">
-
-        <% song.albumImg.flat(); %>
-        <!-- <li>
-            <h2><%-song.artist[0]%></h2>
-        </li> -->
-        
-            <h2><%-song.name.slice(0, 15) + (song.name.length > 15 ? "..." : "");%></h2>
-       
-            <p><%- song.album.slice(0, 20) + (song.album.length > 20 ? "..." : "") %></p>
-        </li>
-
-
-        <br>
-        <% }); %>
-    </ul>
-  
-</div>
+<section>
+    <h1>Start Chat</h1>
+    <ul></ul>
+    <form>
+      <input type="text" autocomplete="off">
+      <button><span>Send</span></button>
+    </form>
+  </section>
+</main>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="js/script.js"></script>
