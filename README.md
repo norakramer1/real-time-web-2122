@@ -6,7 +6,7 @@
 ## About the project
 This project is a multi user chatroom that displays every users top three tracks in Spotify using their API.
 
-![https://github.com/norakramer1/real-time-web-2122/blob/main/public/images/spotify-interface.png]
+![https://github.com/norakramer1/real-time-web-2122/blob/main/public/images/spotify-interface.png](top track discussion interface)
 ## Assignment
 ### Concepts
 I started out with three concepts for my application.
