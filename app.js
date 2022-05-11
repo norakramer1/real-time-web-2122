@@ -12,7 +12,6 @@ require('dotenv').config()
 
 const port = process.env.PORT || 2000
 
-
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
@@ -20,11 +19,11 @@ app.use(express.static(path.resolve('public')))
 
 const clientId = process.env.CLIENT_ID
 const clientSecret = process.env.CLIENT_SECRET
-// const redirectUri = process.env.REDIRECT_URI
+//const redirectUri = 'http://192.168.1.19:2000/callback/'
 const redirectUri ='https://top-track-discussion.herokuapp.com/callback/'
 let accessToken;
 let refreshToken;
-// spotify api scopes for retrieving information about artists, users
+// spotify api scopes for retrieving information about artists and users
 const scopes = [
   'ugc-image-upload',
   'user-read-playback-state',
@@ -50,7 +49,7 @@ const scopes = [
 // gets home route
 app.get('/', (req, res) => {
   res.render('home', {
-    pageTitle: "Chat App Home"
+    pageTitle: "Home"
   });
 });
 
@@ -77,7 +76,7 @@ app.get('/callback', (req, res) => {
     res.send(`Callback Error: ${error}`);
     return;
   }
-  // Retrieve an access token
+  // Retrieve an access token and refresh token to use when logging in
   spotifyApi
     .authorizationCodeGrant(code)
     .then(data => {
@@ -87,8 +86,8 @@ app.get('/callback', (req, res) => {
 
       spotifyApi.setAccessToken(access_token);
       spotifyApi.setRefreshToken(refresh_token);
-       accessToken = access_token;
-       refreshToken = refresh_token;
+      accessToken = access_token;
+      refreshToken = refresh_token;
 
 
       spotifyApi.refreshAccessToken().then(
@@ -101,7 +100,6 @@ app.get('/callback', (req, res) => {
         function (err) {
           console.log('Could not refresh access token', err);
         }
-        
       );
     })
 
@@ -111,32 +109,35 @@ app.get('/callback', (req, res) => {
     });
 
 
-    res.redirect('/albums')
+  res.redirect('/albums')
 
 });
 
+// Make array of users to see each other when you join
 let userData = [];
 
+
+// on getalbum route log in with access token 
 app.get('/albums', (req, res) => {
   const spotifyApi = new SpotifyWebApi();
   spotifyApi.setAccessToken(accessToken)
-  // console.log(process.env.SPOTIFY_ACCESS_TOKEN)
+
+// Get a users username on spotify
   let userName;
   spotifyApi.getMe()
-  .then(function(data) {
-    //console.log('Some information about the authenticated user', data.body);
+    .then(function (data) {
+      userName = data.body.display_name;
+    }, function (err) {
+      console.log('Something went wrong!', err);
+    });
 
-    userName = data.body.display_name;
-    //console.log(data.body)
-  }, function(err) {
-    console.log('Something went wrong!', err);
-  });
-  //GET MY PROFILE DATA
+  // Get a users top tracks
   spotifyApi.getMyTopTracks()
     .then(function (data) {
       let topTracks = data.body.items;
-     const size = 3
+      const size = 3
 
+      // Map over all collected data to filter out the song names, artists, albums and cover images
       let allSongs = topTracks.map(element => {
         return {
           name: element.name,
@@ -145,39 +146,28 @@ app.get('/albums', (req, res) => {
           albumImg: element.album.images
         }
       })
-     const songs = allSongs.slice(0, size) 
-      
+    // slice 20 songs into 3 top songs
+      const songs = allSongs.slice(0, size)
+
+    //render toptracks view with all song info in 'songs' and userinfo in 'user'
       res.render('toptracks', {
-        pageTitle: 'my tracks',
+        pageTitle: 'See all the top tracks',
         songs: songs,
         user: userName
       });
-      console.log(userName)
-      // userData.forEach(asset => {}) 
+    
+   // push user into userArray if userName does not already exist
       let dataExists = userData.some(asset => asset.user === userName);
-        if(!dataExists) {
-          userData.push({
-            songs: songs,
-            user: userName
-          }) 
-        } 
-      //console.log(topTracks);
-     // console.log(songs);
+      if (!dataExists) {
+        userData.push({
+          songs: songs,
+          user: userName
+        })
+      }
     }, function (err) {
       console.log('Something went wrong!', err);
-
     })
-
- 
-
 });
-
-
-
-// app.get('/toptracks', (req, res) => {
-//   console.log('topTracks here');
-//   res.send('hey')
-// });
 
 //sockets
 io.on('connection', socket => {

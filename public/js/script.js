@@ -24,8 +24,8 @@ socket.on('user data', data => {
     data.forEach(asset => {
       document.querySelector('body').insertAdjacentHTML('beforeend', `
       <div>
-        <h3>${asset.user}</h3>
-        <ul></ul>
+        <h2> ${asset.user}</h2>
+        <ul class="songs"></ul>
       </div>
       `)
       asset.songs.forEach(song => {
@@ -33,7 +33,7 @@ socket.on('user data', data => {
         <li>
           <img src="${song.albumImg[0].url}" alt="">
 
-          <h2>${song.name.slice(0, 15) + (song.name.length > 15 ? "..." : "")}</h2>
+          <h3>${song.name.slice(0, 15) + (song.name.length > 15 ? "..." : "")}</h3>
           <p>${song.album.slice(0, 20) + (song.album.length > 20 ? "..." : "")}</p>
         </li>
         `)
