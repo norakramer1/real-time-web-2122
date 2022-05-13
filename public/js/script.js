@@ -2,6 +2,7 @@
 let socket = io()
 let messages = document.querySelector('section ul')
 let input = document.querySelector('input')
+let reload = document.querySelector('a.login')
 
 document.querySelector('form').addEventListener('submit', event => {
   event.preventDefault()
@@ -42,3 +43,12 @@ socket.on('user data', data => {
     
 })
 
+socket.on("reload", () => {
+  location.reload();
+});
+
+reload.addEventListener("click", () => {
+    socket.emit("reload");
+  },
+  false
+);
