@@ -127,10 +127,10 @@ Authorization of user data has a few steps:
 3. After they log in they get redirected to your added `redirect_uri`
 
 ## Wishlist
-[] Display more user data (profile picture)
-[] Display more track data (name of the artist)
-[] Play the songs when you click on them using webplayer in the API
-[] Add a gaming element like guessing other users favorite songs
+[ ] Display more user data (profile picture)
+[ ] Display more track data (name of the artist)
+[ ] Play the songs when you click on them using webplayer in the API
+[ ] Add a gaming element like guessing other users favorite songs
 
 ## Sources
 
