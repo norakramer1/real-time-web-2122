@@ -5,7 +5,7 @@ To view the app you have to login using spotify with this login information.
 
 !! I tested it but because this Spotify account is new it does not hac=ve any top tracks to display so it still looks empty, sadly.
 
-![App with other users](other-users.png)
+![App with other users](https://github.com/norakramer1/real-time-web-2122/blob/main/public/images/other-users.png)
 
 - Email: real.time.web.spotify@gmail.com
 - Password: real-time-web-2122
