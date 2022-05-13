@@ -17,10 +17,6 @@ socket.on('message', message => {
   messages.scrollTop = messages.scrollHeight
 })
 
-socket.on('userSongs', userSongs => {
-  io.emit('userSongs', data); 
-})
-
 socket.on('user data', data => {
     data.forEach(asset => {
       document.querySelector('body').insertAdjacentHTML('beforeend', `
@@ -46,9 +42,3 @@ socket.on('user data', data => {
 socket.on("reload", () => {
   location.reload();
 });
-
-reload.addEventListener("click", () => {
-    socket.emit("reload");
-  },
-  false
-);
