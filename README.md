@@ -72,6 +72,44 @@ When a user is Authorized by Spotify all the other users are updated with their 
 ## Data Life Cycle
 ![Data life cycle](https://github.com/norakramer1/real-time-web-2122/blob/main/public/images/data-life-cycle.jpeg)
 
+## Data modelling
+
+           user
+┌───────  ┌────────────────────┐   ◄───────────────────────┐
+│         │                    │                           │
+│         │  name:  ,          │                           │
+│         │  top three tracks, │                           │
+│         │                    │                           │
+│         │                    │                           │
+│         │                    │                           │   chat
+│         │                    │                           │  ┌───────────────────────┐
+│         │                    │                           │  │                       │
+│         │                    │                           │  │                       │
+│         │                    │                           │  │  message:             │
+│         │                    │                           │  │                       │
+│         └────────────────────┘                           └─►│                       │
+│                                                             │                       │
+│                                                             │                       │
+│                                                             │                       │
+│                                                             │                       │
+│                                                             │                       │
+│           Spotify API                                       │                       │
+│         ┌────────────────────┐                              │                       │
+│         │                    │                              │                       │
+└──────►  │  Album {           │                              │                       │
+          │    images[],       │                              └───────────────────────┘
+          │                    │
+          │    name: ,         │
+          │        }           │
+          │  Song {            │
+          │    name: ,         │
+          │      }             │
+          │                    │
+          │  User {            │
+          │    user_name: ,    │
+          │       }            │
+          └────────────────────┘
+
 ## Install and API key
 1. Clone this repo
 Add `git clone https://github.com/norakramer1/real-time-web-2122.git` to you terminal
@@ -133,7 +171,10 @@ Authorization of user data has a few steps:
 - [ ] Add a gaming element like guessing other users favorite songs
 
 ## Sources
-
+[Spotify for Developers](https://developer.spotify.com/documentation/web-api/quick-start/)
+[Video on authorization code flow](newline.co/courses/build-a-spotify-connected-app/implementing-the-authorization-code-flow)
+[Spotify forum](https://community.spotify.com/t5/Accounts/Oops-Something-went-wrong-please-try-again-or-check-out-our-help/td-p/1459460)
+[Example code for authorization from the spotify-web-api-node package](https://www.npmjs.com/package/spotify-web-api-node)
 
 ## License 
 This project uses the MIT license
