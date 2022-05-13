@@ -3,7 +3,7 @@
 ## Test it for yourself
 To view the app you have to login using spotify with this login information. 
 
-!! I tested it but because this Spotify account is new it does not hac=ve any top tracks to display so it still looks empty, sadly.
+> I tested it but because this Spotify account is new it does not hac=ve any top tracks to display so it still looks empty, sadly.
 
 ![App with other users](https://github.com/norakramer1/real-time-web-2122/blob/main/public/images/other-users.png)
 
@@ -12,12 +12,29 @@ To view the app you have to login using spotify with this login information.
 
 ## Table of Contents
 - [About the project](#about-the-project)
+- [Assignment](#assignment)
+- [3 concepts](#concepts)
+- [Real time events](#real-time-events)
+- [Data life cycle](#data-life-cycle)
+- [Data modelling](#data-modelling)
+- [Install and API key](#install-and-api-key)
+- [Dependencies](#dependencies)
+- [Features](#features)
+- [About the API](#about-the-api)
+- [Authorization](#authorization)
+- [MoSCow](#moscow)
+- [Sources](#sources)
+- [License](#license)
+
 
 ## About the project
 This project is a multi user chatroom that displays every users top three tracks in Spotify using their API.
 
 ![top track discussion interface](https://github.com/norakramer1/real-time-web-2122/blob/main/public/images/spotify-interface.png)
+
 ## Assignment
+The assignment for this project was to build a real time application using sockets. The application also has to feature an external data source and has to be multi user.
+
 ### Concepts
 I started out with three concepts for my application.
 
@@ -71,6 +88,7 @@ When a user is Authorized by Spotify all the other users are updated with their 
 
 ## Data Life Cycle
 ![Data life cycle](https://github.com/norakramer1/real-time-web-2122/blob/main/public/images/data-life-cycle.jpeg)
+
 
 ## Data modelling
 ```
@@ -166,9 +184,23 @@ Authorization of user data has a few steps:
 2. With the access token you make calls to the API. Authorization keys expire after 1 hour and that is why you need a refresh token. 
 3. After they log in they get redirected to your added `redirect_uri`
 
-## Wishlist
+## MoSCow
+
+### Must have 
+- [x] View other users top tracks
+- [x] Chat about the tracks
+- [x] Authorize users using Spotify API
+
+### Should have
+- [x] Username display
+- [ ] Name of the artist
+
+
+### Could have
 - [ ] Display more user data (profile picture)
 - [ ] Display more track data (name of the artist)
+
+### Would have
 - [ ] Play the songs when you click on them using webplayer in the API
 - [ ] Add a gaming element like guessing other users favorite songs
 
