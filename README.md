@@ -73,7 +73,7 @@ When a user is Authorized by Spotify all the other users are updated with their 
 ![Data life cycle](https://github.com/norakramer1/real-time-web-2122/blob/main/public/images/data-life-cycle.jpeg)
 
 ## Data modelling
-
+```
            user
 ┌───────  ┌────────────────────┐   ◄───────────────────────┐
 │         │                    │                           │
@@ -109,6 +109,8 @@ When a user is Authorized by Spotify all the other users are updated with their 
           │    user_name: ,    │
           │       }            │
           └────────────────────┘
+
+```
 
 ## Install and API key
 1. Clone this repo
