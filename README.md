@@ -1,5 +1,15 @@
 # Real-Time Web @cmda-minor-web 2021 - 2022
 
+## Test it for yourself
+To view the app you have to login using spotify with this login information. 
+
+!! I tested it but because this Spotify account is new it does not hac=ve any top tracks to display so it still looks empty, sadly.
+
+![App with other users](other-users.png)
+
+- Email: real.time.web.spotify@gmail.com
+- Password: real-time-web-2122
+
 ## Table of Contents
 - [About the project](#about-the-project)
 
@@ -49,13 +59,81 @@ My final idea was pictionary, or let all users guessing what one user draws.
 ### Final concept
 My final concept is a group playlist using Spotify. All users log in with spotify authorization and in the room you can see every users 3 most listened to songs. If i have the time I want to implement a playlist where the whole group can listen to one of the songs in the playlist.
 
-## Install
-## Packages
-## Features
 ## Real Time Events
-## About the API
-## API Key
+### Connect
+The connection event is called when a user connects to the server.
+
+### Chat message
+The chat message event is called when a user sends a message all the other clients recieve it.
+
+### Send user data to other clients
+When a user is Authorized by Spotify all the other users are updated with their user information.
+
 ## Data Life Cycle
-## Checklist
+![Data life cycle](https://github.com/norakramer1/real-time-web-2122/blob/main/public/images/data-life-cycle.jpeg)
+
+## Install and API key
+1. Clone this repo
+Add `git clone https://github.com/norakramer1/real-time-web-2122.git` to you terminal
+
+2. Install
+Install by running `npm install`
+
+3. Sign in with Spotify for a [Spotify Developer account](https://developer.spotify.com/)
+
+4. Create a new app
+Create an app to notify Spotify and get a ClientID and ClientSecret
+
+5. In the 'Edit setting' tab add a callback route to your app
+This is usually `localhost:PORT/callback/`. You need a callback route for Spotify to redirect your users after they logged in using their Authorization.
+
+6. Add a `.env` file to your project
+Make a `.env` file and add:
+    - `CLIENT_ID=` this is in your developer dashboard on Spotify
+    - `CLIENT_SECRET=` also in you developer dahboard
+    - `REDIRECT_URI=` the callback route (has to be 100% the same everwhere)
+    - `SPOTIFY_ACCESS_TOKEN=` you get this after you have logged in succesfully, you have to login again every hour
+
+7. Run
+Run `npm start` in your terminal
+
+## Dependencies
+ - dotenv
+ - ejs
+ - express
+ - socket.io
+ - spotify-web-api-node
+
+ ### DevDependencies
+  - nodemon
+
+## Features
+- See other user's top songs of the last six months
+- See other user's Spotify username
+- Send chat messages to all other users
+
+## About the API
+> Based on simple REST principles, the Spotify Web API endpoints return JSON metadata about music artists, albums, and tracks, directly from the Spotify Data Catalogue.
+
+This [API](https://developer.spotify.com/documentation/web-api/quick-start/) is really extensive. Every feature built in to Spotify is availabe through the API. Different data is available trough `scopes`. You add the [scopes](https://developer.spotify.com/documentation/general/guides/authorization/scopes/) you need in an array and when you ask for access in the API, the API will return the data in the scope. For this project I used `user-top-read` and `user-read-private`. 
+
+When the user wants to access the app they get redirected to Spotify to log in to via their interface. 
+
+### Authorization
+Authorization of user data has a few steps:
+
+1. A user logs in trough Spotify and gets and `access_token` and `refresh_token`
+2. With the access token you make calls to the API. Authorization keys expire after 1 hour and that is why you need a refresh token. 
+3. After they log in they get redirected to your added `redirect_uri`
+
+## Wishlist
+[] Display more user data (profile picture)
+[] Display more track data (name of the artist)
+[] Play the songs when you click on them using webplayer in the API
+[] Add a gaming element like guessing other users favorite songs
+
 ## Sources
+
+
 ## License 
+This project uses the MIT license
