@@ -20,7 +20,7 @@ app.use(express.static(path.resolve('public')))
 const clientId = process.env.CLIENT_ID
 const clientSecret = process.env.CLIENT_SECRET
 //const redirectUri = 'http://192.168.1.19:2000/callback/'
-const redirectUri ='https://top-track-discussion.herokuapp.com/callback/'
+const redirectUri ='https://top-track-discussion-production.up.railway.app/callback/'
 let accessToken;
 let refreshToken;
 // spotify api scopes for retrieving information about artists and users
